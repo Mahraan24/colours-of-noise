@@ -1,6 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-
 
 class Wave:
 
@@ -25,9 +23,9 @@ class Wave:
 
     def pink(self):
         steps = self._gaussian()
-        fft = np.fft.rfft(steps) #what combination of sine waves makes up this noise signal
+        fft = np.fft.rfft(steps)
         fqs = np.arange(1, len(fft) + 1)
-        fft /= np.sqrt(fqs) #go through each sine wave and turning down the volume of the higher freq one.
+        fft /= np.sqrt(fqs)
         wave = np.fft.irfft(fft, n=self.samples)
         return self._normalise(wave)
 
@@ -36,30 +34,3 @@ class Wave:
         wave = np.cumsum(steps)
         wave -= np.linspace(wave[0], wave[-1], len(wave))
         return self._normalise(wave)
-
-
-
-
-#for testing
-w = Wave().brown()
-brown_wave = Wave().brown()
-pink_wave = Wave().pink()
-
-for wave, label in [(brown_wave, 'Brown'), (pink_wave, 'Pink')]:
-    fft = np.fft.rfft(wave)
-    power = np.abs(fft) ** 2
-    freqs = np.fft.rfftfreq(len(wave), d=1/44100)
-    plt.loglog(freqs[1:], power[1:], label=label)
-
-plt.xlabel("Frequency (Hz)")
-plt.ylabel("Power")
-plt.title("Brown vs Pink power spectrum")
-plt.legend()
-plt.show()
-
-plt.plot(w)
-
-plt.show()
-
-
-
