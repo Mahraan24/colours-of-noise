@@ -7,13 +7,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from sound_engine.wave_generator import Wave
 
-
 def power_spectrum(wave, sample_rate=44100):
     fft = np.fft.rfft(wave)
     power = np.abs(fft) ** 2
     freqs = np.fft.rfftfreq(len(wave), d=1 / sample_rate)
     return freqs, power
-
 
 def plot_all():
     w = Wave()
@@ -45,7 +43,6 @@ def plot_all():
 
     plt.tight_layout()
     plt.show()
-
 
 if __name__ == "__main__":
     plot_all()
