@@ -6,20 +6,19 @@ class Wave:
         self.samples = samples
 
     def _gaussian(self) -> np.ndarray:
-        return np.random.normal(0, 1, self.samples)
+        amps = np.random.normal(0, 1, self.samples)
+        return amps.astype(np.float32)
 
     @staticmethod
-    def _normalise(wave) -> np.ndarray:
+    def _normalise(wave, target=0.1) -> np.ndarray:
         rms = np.sqrt(np.mean(wave ** 2))
-        wave /= (rms * 3)
+        wave = wave * (target / (rms + np.finfo(np.float32).eps))
         wave = np.clip(wave, -1, 1)
         return wave.astype(np.float32)
 
     def white(self) -> np.ndarray:
         wave = self._gaussian()
-        wave = np.clip(wave, -3, 3)
-        wave /= 3
-        return wave.astype(np.float32)
+        return self._normalise(wave, target=0.07)
 
     def pink(self) -> np.ndarray:
         steps = self._gaussian()
@@ -27,10 +26,12 @@ class Wave:
         fqs = np.arange(1, len(fft) + 1)
         fft /= np.sqrt(fqs)
         wave = np.fft.irfft(fft, n=self.samples)
-        return self._normalise(wave)
+        return self._normalise(wave, target=0.09)
 
     def brown(self) -> np.ndarray:
         steps = self._gaussian()
-        wave = np.cumsum(steps)
-        wave -= np.linspace(wave[0], wave[-1], len(wave))
-        return self._normalise(wave)
+        fft = np.fft.rfft(steps)
+        fqs = np.arange(1, len(fft) + 1)
+        fft /= fqs
+        wave = np.fft.irfft(fft, n=self.samples)
+        return self._normalise(wave, target=0.5)

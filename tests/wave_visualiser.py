@@ -38,8 +38,10 @@ def plot_all():
         axes[row, 1].set_xticks([])
         axes[row, 1].set_yticks([])
 
+
     axes[0, 0].set_title("time", fontsize=10, color="gray")
     axes[0, 1].set_title("frequency", fontsize=10, color="gray")
+
 
     plt.tight_layout()
     plt.show()
