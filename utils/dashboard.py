@@ -1,7 +1,6 @@
 import customtkinter as ctk
 from utils.ux_controls import *
 import config as cg
-from ux_utils import *
 
 class Dashboard:
 
@@ -15,6 +14,7 @@ class Dashboard:
         self._build()
 
     def _build(self):
+
         pass
 
     def _on_blend_change(self, changed_label, value):
