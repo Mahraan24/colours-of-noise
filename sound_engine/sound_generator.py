@@ -39,16 +39,13 @@ class NoisePlayer:
             #=====================White=====================
             start_white = white_pos[0]
             end_white = start_white + self._buffer_size
-
             if end_white <= len(white_loop):
                 chunk = white_loop[start_white:end_white]
             else:
-                # wrap around — stitch end + beginning
                 chunk = np.concatenate([
                     white_loop[start_white:],
                     white_loop[:end_white - len(white_loop)]
                 ])
-
             white_pos[0] = end_white % len(white_loop)
             white = chunk * self._white_weight
             #=====================White=====================
@@ -56,16 +53,13 @@ class NoisePlayer:
             #=====================Pink=====================
             start_pink = pink_pos[0]
             end_pink = start_pink + self._buffer_size
-
             if end_pink <= len(pink_loop):
                 chunk = pink_loop[start_pink:end_pink]
             else:
-                # wrap around — stitch end + beginning
                 chunk = np.concatenate([
                     pink_loop[start_pink:],
                     pink_loop[:end_pink - len(pink_loop)]
                 ])
-
             pink_pos[0] = end_pink % len(pink_loop)
             pink = chunk * self._pink_weight
             #=====================Pink=====================
@@ -73,16 +67,13 @@ class NoisePlayer:
             #=====================Brown=====================
             start_brown = brown_pos[0]
             end_brown = start_brown + self._buffer_size
-
             if end_brown <= len(brown_loop):
                 chunk = brown_loop[start_brown:end_brown]
             else:
-                # wrap around — stitch end + beginning
                 chunk = np.concatenate([
                     brown_loop[start_brown:],
                     brown_loop[:end_brown - len(brown_loop)]
                 ])
-
             brown_pos[0] = end_brown % len(brown_loop)
             brown = chunk * self._brown_weight
             #=====================Brown=====================
@@ -91,10 +82,8 @@ class NoisePlayer:
             peak = np.max(np.abs(buffer))
             if peak > 1.0:
                 buffer /= peak
-
             if self._timer is not None:
                 remaining = self._timer - elapsed_ref[0]
-
                 if remaining <= cg.fade_duration:
                     fade_scale = max(0.0, remaining / cg.fade_duration)
                     outdata[:] = (buffer * fade_scale).reshape(-1, 1)
@@ -109,15 +98,11 @@ class NoisePlayer:
                 channels=1,
                 callback=callback
                 ):
-
             start_time = time.time()
-
             while not self._stop_event.is_set():
                 elapsed_ref[0] = time.time() - start_time
-
                 if self._timer is not None and elapsed_ref[0] >= self._timer:
                     break
-
                 self._stop_event.wait(timeout=0.1)
 
         self._playing = False

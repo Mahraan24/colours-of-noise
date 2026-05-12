@@ -8,7 +8,7 @@ def test_play_default():
     player.play()
     time.sleep(5)
     player.stop()
-    print("test_play_default ✓\n")
+    print("test_play_default passed!\n")
 
 def test_blend_switch():
     """Cycles through white, pink and brown one at a time."""
@@ -29,17 +29,17 @@ def test_blend_switch():
     time.sleep(4)
 
     player.stop()
-    print("test_blend_switch ✓\n")
+    print("test_blend_switch passed!\n")
 
 def test_blend_mix():
     """Plays an equal mix of all three noises."""
     print("test_blend_mix: equal mix...")
     player = NoisePlayer()
-    player.set_blend(white=1, pink=1, brown=1)
+    player.set_blend(white=0.2, pink=0.7, brown=0.1)
     player.play()
     time.sleep(5)
     player.stop()
-    print("test_blend_mix ✓\n")
+    print("test_blend_mix passed!\n")
 
 def test_volume():
     """Ramps volume from low to high."""
@@ -51,7 +51,7 @@ def test_volume():
         print(f"  volume: {v}")
         time.sleep(2)
     player.stop()
-    print("test_volume ✓\n")
+    print("test_volume passed!\n")
 
 def test_timer():
     """Sets a 10s timer with fade out over last 5s."""
@@ -61,7 +61,7 @@ def test_timer():
     player.play()
     time.sleep(12)  # wait a bit longer than timer
     player.stop()
-    print("test_timer ✓\n")
+    print("test_timer passed!\n")
 
 if __name__ == "__main__":
     test_play_default()

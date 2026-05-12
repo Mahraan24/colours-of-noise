@@ -1,6 +1,5 @@
 from sound_engine.sound_generator import NoisePlayer
-from utils.dashboard import Dashboard
-
+from view.dashboard import Dashboard
 
 def main():
     player = NoisePlayer()
@@ -14,7 +13,6 @@ def main():
     )
 
     app.mainloop()
-
 
 if __name__ == "__main__":
     main()
