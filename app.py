@@ -1,5 +1,5 @@
 from sound_engine.sound_generator import NoisePlayer
-from view.dashboard import Dashboard
+from utils.dashboard import Dashboard
 
 def main():
     player = NoisePlayer()

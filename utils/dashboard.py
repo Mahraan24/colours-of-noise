@@ -1,6 +1,5 @@
 import customtkinter as ctk
-from utils.ux_controls import *
-import config as cg
+from config import *
 from utils.preset_manager import *
 
 class Dashboard:
@@ -11,28 +10,43 @@ class Dashboard:
         self.on_volume = on_volume
         self.on_blend  = on_blend
         self.on_timer  = on_timer
+        self.is_playing = False
         self._sliders = {}
         self._build()
 
     def _build(self):
-        ctk.set_appearance_mode("dark")
+        ctk.set_appearance_mode(appearance_mode)
         self.root = ctk.CTk()
-        self.root.title("colours of noise")
-        self.root.geometry("720x450")
+        self.root.title(title)
+        self.root.geometry(dimension)
         self.root.configure(fg_color=BG)
+        self.root.resizable(False,False)
 
+        #title
+        title_label = ctk.CTkLabel(
+            self.root,
+            text=title,
+            font=ctk.CTkFont(FONT_BOLD),
+            text_color=TEXT
+        )
+        title_label.place(relx=0.5, rely=0.05, anchor="center")
+
+        #preset dropdown
         presets = load()
-        names = list(presets.keys()) or ["no presets saved"]
-
-        dropdown = ctk.CTkOptionMenu(
+        names = list(presets.keys()) or [no_preset_saved]
+        self.preset_dropdown = ctk.CTkOptionMenu(
             self.root,
             values=names,
-            command=self._on_preset_selected
+            command=self._on_preset_selected,
+            width=200
         )
-        dropdown.place(relx=0.5, rely=0.1, anchor="center")
+        self.preset_dropdown.place(relx=0.5, rely=0.1, anchor="center")
+
+        #buttons
+
 
     def _on_preset_selected(self, name):
-        if name == "no presets saved":
+        if name == no_preset_saved:
             return None
 
         presets = load()
@@ -49,6 +63,7 @@ class Dashboard:
         self.on_volume(data["volume"])
         self.on_timer(data["timer"] * 60 if data["timer"] > 0 else None)
 
+        return None
 
     def _on_blend_change(self, changed_label, value):
         pass
