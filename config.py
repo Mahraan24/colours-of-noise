@@ -21,9 +21,19 @@ max_presets = 8
 title = "colours of noise"
 appearance_mode = "dark"
 dimension = "720x450"
+blend = "blend"
+white = "white"
+pink = "pink"
+brown = "brown"
+volume_tx = "volume"
+timer_tx = "timer"
+play = "▶ PLAY"
+stop = "■ STOP"
 
-#err
+#message
 no_preset_saved = "no presets saved"
+preset_saved = "Save Preset"
+preset_delete = "Delete Preset"
 
 #Colours
 BG       = "#F4F1BB"   # lemon chiffon - background
@@ -33,6 +43,8 @@ RED      = "#BD1E1E"   # deep red - play/stop
 TEXT     = "#2D2D2D"   # near black — readable text
 TEXT_DIM = "#5CA4A9"   # tropical teal — labels
 DIVIDER  = "#5CA4A9"   # tropical teal — dividers
-FONT     = ("Comic Sans MS", 11)
-FONT_BOLD= ("Comic Sans MS", 11, "bold")
+
+#Font
+FONT     = ("Comic Sans MS", 18)
+FONT_BOLD= ("Comic Sans MS", 18, "bold")
 FONT_SM  = ("Comic Sans MS", 9)

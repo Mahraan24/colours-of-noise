@@ -20,7 +20,7 @@ def write(presets: dict):
 def save(name: str, data: dict) -> tuple[bool, str]:
     presets = load()
     if name in presets:
-        return False, "Present already exists."
+        return False, "Preset already exists."
     if len(presets) >= cg.max_presets:
         return False, f"Maximum of {cg.max_presets} presets."
     presets[name] = data
